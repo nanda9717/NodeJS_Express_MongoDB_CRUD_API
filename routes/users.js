@@ -34,6 +34,17 @@ router.get('/:id', async(req, res) => {
     }
 });
 
+router.put('/:id', async(req, res) => {
+    try{
+        const u = await User.findByIdAndUpdate({ _id: req.params.id}, req.body, { 
+            useFindAndModify: false, new: true
+        });
+        res.json(u);
+    }catch(err){
+        res.send('Error - '+err);
+    }
+});
+
 router.patch('/:id', async(req, res) => {
     try{
         const user = await User.findById(req.params.id);
